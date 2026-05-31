@@ -1,0 +1,910 @@
+/* ============================================================
+   style.css – Restaurant La Marmite
+   Thème : Bleu profond · Blanc · Or — Fusion Afrique & Europe
+   ============================================================
+   Table des matières :
+     1.  Variables CSS & Reset
+     2.  Typographie globale
+     3.  Header & Navbar
+     4.  Section Héro + Chef animée
+     5.  Section Menu (grille de plats)
+     6.  Section À propos
+     7.  Section Contact
+     8.  Pied de page
+     9.  Composants réutilisables (boutons, badges…)
+    10.  Animations CSS (chef, vapeur, étoiles, flottement)
+    11.  Media Queries (responsive)
+   ============================================================ */
+
+
+/* ── 1. Variables CSS & Reset ─────────────────────────────── */
+:root {
+  /* ─ Palette Bleu / Blanc / Or ─ */
+  --clr-blue-deep:   #0b2d6b;    /* bleu nuit profond — fond principal */
+  --clr-blue-mid:    #0d47a1;    /* bleu royal — sections alternées */
+  --clr-blue-light:  #1565c0;    /* bleu vif — éléments interactifs */
+  --clr-blue-pale:   #e8f1fc;    /* bleu très pâle — fond clair */
+  --clr-gold:        #d4a017;    /* or chaud — accent principal */
+  --clr-gold-light:  #f0c040;    /* or clair — survol */
+  --clr-white:       #ffffff;    /* blanc pur */
+  --clr-white-soft:  rgba(255,255,255,0.85);
+  --clr-text-dark:   #0b1f4a;    /* texte principal foncé */
+  --clr-text-muted:  rgba(255,255,255,0.6);
+  --clr-border:      rgba(212,160,23,0.25);
+
+  /* ─ Typographie ─ */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Raleway', sans-serif;
+
+  /* ─ Espacements ─ */
+  --section-py: 5rem;
+
+  /* ─ Ombres ─ */
+  --shadow-sm: 0 4px 16px rgba(11,45,107,0.15);
+  --shadow-md: 0 10px 36px rgba(11,45,107,0.22);
+  --shadow-lg: 0 24px 64px rgba(11,45,107,0.30);
+  --shadow-gold: 0 4px 20px rgba(212,160,23,0.30);
+
+  /* ─ Transitions ─ */
+  --tr: 0.3s ease;
+}
+
+/* Reset minimal */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--clr-blue-pale);
+  color: var(--clr-text-dark);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+img  { display: block; max-width: 100%; }
+a    { text-decoration: none; color: inherit; }
+ul   { list-style: none; padding: 0; margin: 0; }
+em   { font-style: italic; color: var(--clr-gold); }
+strong { color: inherit; font-weight: 700; }
+
+
+/* ── 2. Typographie globale ───────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+
+/* ── 3. Header & Navbar ───────────────────────────────────── */
+
+/* Navbar fixe en haut, fond bleu semi-transparent */
+.navbar {
+  background: rgba(11, 45, 107, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--clr-border);
+  padding: 0.9rem 0;
+  position: fixed;
+  top: 0; width: 100%;
+  z-index: 999;
+  transition: background var(--tr), padding var(--tr), box-shadow var(--tr);
+}
+
+/* Navbar compressée après scroll (classe ajoutée par JS) */
+.navbar.scrolled {
+  background: rgba(11, 45, 107, 0.98);
+  padding: 0.55rem 0;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+
+/* Logo : texte structuré */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.brand-restaurant {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--clr-gold-light);
+}
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--clr-white);
+  letter-spacing: 1px;
+}
+
+/* Logo marmite SVG — animation vapeur */
+.logo-marmite .vapeur path {
+  animation: vapeurMonte 2.5s ease-in-out infinite;
+  transform-origin: bottom center;
+  opacity: 0.7;
+}
+.logo-marmite .vapeur path:nth-child(2) { animation-delay: 0.5s; }
+.logo-marmite .vapeur path:nth-child(3) { animation-delay: 1s; }
+
+/* Liens de navigation */
+.nav-link {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8) !important;
+  padding: 0.45rem 0.85rem !important;
+  position: relative;
+  transition: color var(--tr);
+}
+/* Soulignement doré animé */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0.85rem;
+  width: 0; height: 2px;
+  background: var(--clr-gold);
+  transition: width var(--tr);
+}
+.nav-link:hover { color: var(--clr-gold-light) !important; }
+.nav-link:hover::after { width: calc(100% - 1.7rem); }
+
+/* Hamburger mobile */
+.navbar-toggler { border-color: var(--clr-border); }
+.navbar-toggler:focus { box-shadow: none; }
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23d4a017' stroke-linecap='round' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+/* ── 4. Section Héro ──────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Image de fond : plat africain appétissant */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80')
+    center center / cover no-repeat;
+  animation: zoomLent 20s ease-in-out infinite alternate;
+}
+@keyframes zoomLent {
+  from { transform: scale(1);   }
+  to   { transform: scale(1.1); }
+}
+
+/* Calque bleu superposé (dégradé pour lisibilité) */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(11,45,107,0.82) 0%,
+    rgba(13,71,161,0.70) 50%,
+    rgba(11,45,107,0.88) 100%
+  );
+}
+
+/* Conteneur du héro */
+.hero-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Badge héro */
+.hero-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--clr-gold-light);
+  border: 1px solid rgba(212,160,23,0.45);
+  padding: 0.4rem 1.2rem;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+}
+
+/* Titre héro */
+.hero-title {
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  color: var(--clr-white);
+  margin-bottom: 1.1rem;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+/* Sous-titre héro */
+.hero-sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.78);
+  max-width: 520px;
+  margin-bottom: 2.2rem;
+}
+
+/* ── Chef demoiselle SVG animée ── */
+.chef-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* Animation flottement vertical — chef qui "vit" */
+.chef-svg {
+  animation: flotterChef 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.5));
+}
+@keyframes flotterChef {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25%       { transform: translateY(-10px) rotate(1deg); }
+  75%       { transform: translateY(-5px) rotate(-1deg); }
+}
+
+/* Bras gauche (avec marmite) — balancement */
+.bras-gauche {
+  transform-origin: 68px 145px;
+  animation: balancerGauche 2.5s ease-in-out infinite;
+}
+@keyframes balancerGauche {
+  0%, 100% { transform: rotate(0deg); }
+  50%       { transform: rotate(8deg); }
+}
+
+/* Bras droit (avec cuillère) — agitation */
+.bras-droit {
+  transform-origin: 132px 145px;
+  animation: agiterDroit 1.8s ease-in-out infinite;
+}
+@keyframes agiterDroit {
+  0%, 100% { transform: rotate(0deg); }
+  30%       { transform: rotate(-12deg); }
+  60%       { transform: rotate(6deg); }
+}
+
+/* Petite marmite tenue — synchronisé avec bras gauche */
+.petite-marmite {
+  transform-origin: 20px 195px;
+  animation: balancerGauche 2.5s ease-in-out infinite;
+}
+
+/* Étoiles scintillantes autour du chef */
+.etoile-anim {
+  animation: scintiller 2s ease-in-out infinite;
+}
+@keyframes scintiller {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(0.6); }
+}
+
+/* Bulle de parole du chef */
+.chef-bulle {
+  position: absolute;
+  top: 20px; left: -90px;
+  background: var(--clr-white);
+  color: var(--clr-blue-deep);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 16px 16px 0 16px;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  animation: bulleApparaitre 3s ease-in-out infinite;
+  border: 2px solid var(--clr-gold);
+}
+.chef-bulle::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; right: 0;
+  border-width: 10px 10px 0 0;
+  border-style: solid;
+  border-color: var(--clr-gold) transparent transparent transparent;
+}
+@keyframes bulleApparaitre {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.7; transform: scale(0.97); }
+}
+
+
+/* ── 5. Section Menu ──────────────────────────────────────── */
+.section-menu {
+  padding: var(--section-py) 0;
+  background: var(--clr-blue-pale);
+}
+
+/* Catégorie de menu */
+.menu-category {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--clr-blue-deep);
+  border-left: 4px solid var(--clr-gold);
+  padding-left: 1rem;
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Carte de plat */
+.menu-card {
+  background: var(--clr-white);
+  border: 1px solid rgba(11,45,107,0.1);
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform var(--tr), box-shadow var(--tr), border-color var(--tr);
+}
+.menu-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--clr-gold);
+}
+
+/* Carte mise en avant (featured) */
+.menu-card.featured {
+  border: 2px solid var(--clr-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Conteneur image */
+.menu-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.menu-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.menu-card:hover .menu-img { transform: scale(1.07); }
+
+/* Overlay au survol avec origine du plat */
+.menu-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11,45,107,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--tr);
+}
+.menu-card:hover .menu-overlay { opacity: 1; }
+.overlay-origin {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-white);
+  letter-spacing: 1px;
+  padding: 0.4rem 1rem;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 2px;
+}
+
+/* Badges */
+.menu-badge {
+  position: absolute;
+  top: 0.9rem; left: 0.9rem;
+  z-index: 2;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 0.28rem 0.7rem;
+  background: var(--clr-blue-deep);
+  color: var(--clr-white);
+  border-radius: 2px;
+}
+.menu-badge.hot  { background: #c62828; }
+.menu-badge.new  { background: #2e7d32; }
+
+/* Corps de la carte */
+.menu-body {
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.menu-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--clr-blue-deep);
+  margin-bottom: 0.5rem;
+}
+.menu-desc {
+  font-size: 0.84rem;
+  color: #555;
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 1.1rem;
+}
+
+/* Pied de carte : prix + bouton */
+.menu-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(11,45,107,0.08);
+}
+.menu-price {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--clr-gold);
+}
+
+
+/* ── 6. Section À propos ──────────────────────────────────── */
+.section-apropos {
+  padding: var(--section-py) 0;
+  background: var(--clr-blue-deep);
+}
+
+/* Image avec cadre doré */
+.apropos-img-wrap {
+  position: relative;
+}
+.apropos-img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  z-index: 1;
+}
+/* Cadre doré décalé */
+.apropos-frame {
+  position: absolute;
+  top: 1.2rem; left: 1.2rem;
+  right: -1.2rem; bottom: -1.2rem;
+  border: 2px solid var(--clr-gold);
+  border-radius: 4px;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Badge flottant */
+.apropos-badge-float {
+  position: absolute;
+  bottom: 2rem; right: -1.5rem;
+  z-index: 3;
+  background: var(--clr-gold);
+  color: var(--clr-text-dark);
+  padding: 1rem 1.4rem;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: var(--shadow-gold);
+}
+.float-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.float-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; }
+
+/* Contenu texte */
+.apropos-subtitle {
+  font-size: 1.6rem;
+  color: var(--clr-white);
+  margin-bottom: 1.2rem;
+}
+.apropos-text {
+  font-size: 0.93rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* Boîtes statistiques */
+.stat-box {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--clr-border);
+  padding: 1rem;
+  text-align: center;
+  border-radius: 3px;
+}
+.stat-box .stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: var(--clr-gold);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.stat-box .stat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+
+
+/* ── 7. Section Contact ───────────────────────────────────── */
+.section-contact {
+  padding: var(--section-py) 0;
+  background: var(--clr-blue-mid);
+}
+
+/* Infos de contact */
+.contact-infos { display: flex; flex-direction: column; gap: 1.6rem; }
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.contact-icon {
+  width: 46px; height: 46px;
+  background: var(--clr-gold);
+  color: var(--clr-text-dark);
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+.contact-info-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--clr-gold-light);
+  margin-bottom: 0.2rem;
+}
+.contact-info-val {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+
+/* Formulaire */
+.contact-form {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  padding: 2.4rem;
+  border-radius: 6px;
+}
+
+/* Labels */
+.form-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.4rem;
+}
+
+/* Champs Bootstrap personnalisés */
+.form-control,
+.form-select {
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 3px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--clr-white);
+  transition: border-color var(--tr), box-shadow var(--tr);
+}
+.form-control:focus,
+.form-select:focus {
+  background: rgba(255,255,255,0.12);
+  border-color: var(--clr-gold);
+  box-shadow: 0 0 0 3px rgba(212,160,23,0.2);
+  color: var(--clr-white);
+  outline: none;
+}
+.form-control::placeholder { color: rgba(255,255,255,0.3); }
+.form-select option { background: var(--clr-blue-mid); color: #fff; }
+textarea.form-control { resize: none; }
+
+
+/* ── 8. Pied de page ──────────────────────────────────────── */
+footer {
+  background: var(--clr-blue-deep);
+  border-top: 2px solid var(--clr-border);
+  padding: 3rem 0 0;
+  color: rgba(255,255,255,0.65);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--clr-white);
+  margin-bottom: 0.5rem;
+}
+.footer-brand strong { color: var(--clr-gold); }
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Liens rapides */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.2rem;
+  justify-content: center;
+}
+.footer-links a {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  transition: color var(--tr);
+}
+.footer-links a:hover { color: var(--clr-gold); }
+
+/* Réseaux sociaux */
+.footer-follow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 0.8rem;
+}
+.footer-socials { display: flex; gap: 0.6rem; justify-content: center; }
+.social-icon {
+  width: 40px; height: 40px;
+  border: 1px solid rgba(212,160,23,0.25);
+  color: rgba(255,255,255,0.55);
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  transition: all var(--tr);
+}
+.social-icon:hover {
+  background: var(--clr-gold);
+  border-color: var(--clr-gold);
+  color: var(--clr-text-dark);
+  transform: translateY(-3px);
+}
+
+/* Barre de fin */
+.footer-bottom {
+  margin-top: 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 1.2rem 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.3);
+}
+
+
+/* ── 9. Composants réutilisables ──────────────────────────── */
+
+/* En-tête de section */
+.section-head { margin-bottom: 2.5rem; }
+.section-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+  margin-bottom: 0.5rem;
+}
+.section-tag.light { color: var(--clr-gold-light); }
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--clr-blue-deep);
+  margin-bottom: 0.5rem;
+}
+.section-title.text-white { color: var(--clr-white) !important; }
+.section-divider {
+  width: 52px; height: 3px;
+  background: var(--clr-gold);
+  margin: 0.8rem auto 1rem;
+  border-radius: 2px;
+}
+.section-divider.gold { background: var(--clr-gold-light); }
+.section-sub { font-size: 0.95rem; color: #555; }
+.section-sub.text-white-50 { color: rgba(255,255,255,0.5) !important; }
+
+/* Bouton Réserver (navbar) */
+.btn-reserver {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.55rem 1.4rem;
+  background: var(--clr-gold);
+  color: var(--clr-text-dark);
+  border: none;
+  border-radius: 2px;
+  transition: background var(--tr), transform var(--tr);
+}
+.btn-reserver:hover {
+  background: var(--clr-gold-light);
+  color: var(--clr-text-dark);
+  transform: translateY(-1px);
+}
+
+/* Boutons héro */
+.btn-hero-primary {
+  display: inline-block;
+  background: var(--clr-gold);
+  color: var(--clr-text-dark);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.9rem 2rem;
+  border-radius: 2px;
+  transition: background var(--tr), transform var(--tr), box-shadow var(--tr);
+}
+.btn-hero-primary:hover {
+  background: var(--clr-gold-light);
+  color: var(--clr-text-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-hero-ghost {
+  display: inline-block;
+  background: transparent;
+  color: var(--clr-white);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.9rem 2rem;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  border-radius: 2px;
+  transition: all var(--tr);
+}
+.btn-hero-ghost:hover {
+  border-color: var(--clr-gold);
+  color: var(--clr-gold);
+  transform: translateY(-2px);
+}
+
+/* Bouton Commander (cartes menu) */
+.btn-commander {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.5rem 1.1rem;
+  background: var(--clr-blue-deep);
+  color: var(--clr-white);
+  border: none;
+  border-radius: 2px;
+  transition: background var(--tr), transform var(--tr);
+  cursor: pointer;
+}
+.btn-commander:hover {
+  background: var(--clr-gold);
+  color: var(--clr-text-dark);
+  transform: translateY(-1px);
+}
+
+/* Bouton À propos */
+.btn-apropos {
+  display: inline-block;
+  background: var(--clr-gold);
+  color: var(--clr-text-dark);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  border-radius: 2px;
+  transition: all var(--tr);
+}
+.btn-apropos:hover {
+  background: var(--clr-gold-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Bouton Envoyer (formulaire) */
+.btn-envoyer {
+  background: var(--clr-gold);
+  color: var(--clr-text-dark);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 1rem;
+  border: none;
+  border-radius: 3px;
+  transition: background var(--tr), transform var(--tr), box-shadow var(--tr);
+  cursor: pointer;
+}
+.btn-envoyer:hover {
+  background: var(--clr-gold-light);
+  color: var(--clr-text-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+
+/* ── 10. Animations CSS ───────────────────────────────────── */
+
+/* Vapeur de la marmite logo */
+@keyframes vapeurMonte {
+  0%   { opacity: 0; transform: translateY(0) scaleY(1); }
+  40%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-12px) scaleY(1.5); }
+}
+
+/* Apparition staggerée des éléments au chargement */
+.hero-text {
+  animation: fadeInUp 0.9s ease both;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ── 11. Media Queries ────────────────────────────────────── */
+
+/* ── Tablette (≤ 991px) ── */
+@media (max-width: 991.98px) {
+  :root { --section-py: 4rem; }
+
+  /* Héro centré */
+  .hero { padding-top: 5rem; }
+  .hero-sub { margin: 0 auto 2rem; text-align: center; }
+
+  /* Badge À propos repositionné */
+  .apropos-badge-float { right: 0.5rem; bottom: 0.5rem; }
+  .apropos-img { height: 380px; }
+
+  /* Formulaire contact */
+  .contact-form { padding: 1.8rem; }
+
+  /* Footer centré */
+  .footer-brand { justify-content: center; }
+  .footer-copy  { text-align: center; }
+}
+
+/* ── Mobile (≤ 575px) ── */
+@media (max-width: 575.98px) {
+  :root { --section-py: 3rem; }
+
+  /* Titre héro */
+  .hero-title { font-size: clamp(2rem, 9vw, 3rem); }
+
+  /* Images menu réduites */
+  .menu-img { height: 185px; }
+
+  /* Image À propos */
+  .apropos-img { height: 260px; }
+  .apropos-frame { display: none; }
+
+  /* Formulaire sans padding */
+  .contact-form { padding: 1.2rem; }
+
+  /* Footer liens empilés */
+  .footer-links { flex-direction: column; align-items: center; }
+  .footer-socials { justify-content: center; }
+}

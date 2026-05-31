@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Viewport : obligatoire pour la réactivité mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurant La Marmite – Cuisine Africaine & Européenne</title>
+
+  <!-- ─── Bibliothèques externes ─────────────────────────── -->
+  <!-- Bootstrap 5.3 : grille + composants -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts : Playfair Display (titres) + Raleway (corps) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ─── CSS personnalisé (fichier séparé) ─────────────── -->
+  <link rel="stylesheet" href="style_restaurant_la_marmite_v3.css" />
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       EN-TÊTE : Navbar Bootstrap sticky
+       Logo marmite SVG + "RESTAURANT LA MARMITE" à gauche
+       Liens : Accueil, Menu, À propos, Contact à droite
+       ════════════════════════════════════════════════════════ -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
+      <div class="container">
+
+        <!-- ── Logo : icône marmite SVG + nom du restaurant ── -->
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#accueil">
+          <!-- Marmite SVG dessinée (inline pour fiabilité) -->
+          <span class="logo-marmite" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="44" height="44">
+              <!-- Corps de la marmite -->
+              <ellipse cx="32" cy="42" rx="22" ry="14" fill="#d4a017" stroke="#fff" stroke-width="1.5"/>
+              <rect x="10" y="30" width="44" height="14" rx="5" fill="#d4a017" stroke="#fff" stroke-width="1.5"/>
+              <!-- Couvercle -->
+              <ellipse cx="32" cy="30" rx="22" ry="6" fill="#b8860b" stroke="#fff" stroke-width="1.5"/>
+              <!-- Poignée couvercle -->
+              <rect x="27" y="22" width="10" height="8" rx="3" fill="#fff" stroke="#d4a017" stroke-width="1.5"/>
+              <!-- Poignées latérales -->
+              <rect x="2" y="32" width="10" height="6" rx="3" fill="#b8860b" stroke="#fff" stroke-width="1.2"/>
+              <rect x="52" y="32" width="10" height="6" rx="3" fill="#b8860b" stroke="#fff" stroke-width="1.2"/>
+              <!-- Vapeur animée (via CSS) -->
+              <g class="vapeur">
+                <path d="M24 24 Q22 18 24 12" stroke="#90e0ef" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M32 22 Q30 16 32 10" stroke="#90e0ef" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M40 24 Q38 18 40 12" stroke="#90e0ef" stroke-width="2" fill="none" stroke-linecap="round"/>
+              </g>
+            </svg>
+          </span>
+          <!-- Nom de l'enseigne -->
+          <span class="brand-text">
+            <span class="brand-restaurant">RESTAURANT</span>
+            <span class="brand-name">LA MARMITE <br> chez GomyCode</span>
+          </span>
+        </a>
+
+        <!-- ── Bouton hamburger (mobile) ── -->
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navMenu"
+                aria-label="Menu de navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- ── Liens de navigation ── -->
+        <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+          <ul class="navbar-nav align-items-lg-center gap-lg-1">
+            <li class="nav-item"><a class="nav-link" href="#accueil">Accueil</a></li>
+            <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" href="#apropos">À propos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
+          <a href="#contact" class="btn btn-reserver ms-lg-4 mt-3 mt-lg-0">
+            <i class="bi bi-calendar2-check me-1"></i> Réserver
+          </a>
+        </div>
+
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION HÉRO
+       Image de fond : plat africain appétissant
+       Centre : titre + sous-titre + bouton CTA
+       Chef animée flottant à droite
+       ════════════════════════════════════════════════════════ -->
+  <section class="hero" id="accueil">
+    <!-- Fond photo plat délicieux -->
+    <div class="hero-bg"></div>
+    <!-- Calque bleu superposé pour lisibilité -->
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-container">
+      <div class="row align-items-center min-vh-100">
+
+        <!-- Colonne texte centré -->
+        <div class="col-12 col-lg-7 hero-text text-center text-lg-start">
+          <span class="hero-tag">🍽️ Saveurs d'Afrique & d'Europe</span>
+          <h1 class="hero-title">
+            L'Authenticité<br>
+            <em>dans chaque assiette</em>
+          </h1>
+          <p class="hero-sub">
+            Bienvenue au Reataurant <strong>LA MARMITE chez GomyCode</strong> — où les saveurs africaines
+            rencontrent l'excellence de la cuisine européenne pour une expérience
+            gustative unique et chaleureuse.
+          </p>
+          <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start">
+            <a href="#menu" class="btn btn-hero-primary">
+              <i class="bi bi-book-open me-2"></i>Voir notre Menu
+            </a>
+            <a href="#contact" class="btn btn-hero-ghost">Réserver une table →</a>
+          </div>
+        </div>
+
+        <!-- Colonne chef animée (desktop) -->
+        <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+          <div class="chef-wrap">
+            <!-- Chef demoiselle animée en SVG CSS -->
+            <svg class="chef-svg" xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 200 380" width="260" height="380">
+
+              <!-- ── Toque de chef ── -->
+              <ellipse cx="100" cy="68" rx="30" ry="8" fill="#fff"/>
+              <rect x="72" y="30" width="56" height="42" rx="10" fill="#fff"/>
+              <ellipse cx="100" cy="30" rx="28" ry="12" fill="#e8e8e8"/>
+
+              <!-- ── Visage ── -->
+              <ellipse cx="100" cy="100" rx="28" ry="30" fill="#c68642"/>
+              <!-- Yeux -->
+              <ellipse cx="90" cy="96" rx="4" ry="5" fill="#1a1a1a"/>
+              <ellipse cx="110" cy="96" rx="4" ry="5" fill="#1a1a1a"/>
+              <!-- Reflets des yeux -->
+              <circle cx="92" cy="94" r="1.5" fill="#fff"/>
+              <circle cx="112" cy="94" r="1.5" fill="#fff"/>
+              <!-- Sourcils -->
+              <path d="M85 88 Q90 84 95 88" stroke="#5c3317" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M105 88 Q110 84 115 88" stroke="#5c3317" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <!-- Sourire -->
+              <path d="M88 112 Q100 122 112 112" stroke="#8b3a1a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Joues roses -->
+              <ellipse cx="82" cy="108" rx="6" ry="4" fill="rgba(220,80,80,0.25)"/>
+              <ellipse cx="118" cy="108" rx="6" ry="4" fill="rgba(220,80,80,0.25)"/>
+              <!-- Boucles d'oreilles dorées -->
+              <circle cx="72" cy="103" r="4" fill="#d4a017" stroke="#fff" stroke-width="1"/>
+              <circle cx="128" cy="103" r="4" fill="#d4a017" stroke="#fff" stroke-width="1"/>
+
+              <!-- ── Cheveux ── -->
+              <path d="M72 100 Q65 80 72 65 Q80 55 100 58 Q120 55 128 65 Q135 80 128 100"
+                    fill="#2c1a0e"/>
+              <!-- Chignon -->
+              <ellipse cx="100" cy="60" rx="20" ry="8" fill="#2c1a0e"/>
+              <circle cx="115" cy="58" r="6" fill="#2c1a0e"/>
+
+              <!-- ── Corps / veste de chef ── -->
+              <rect x="68" y="126" width="64" height="90" rx="8" fill="#fff"
+                    stroke="#e0e0e0" stroke-width="1"/>
+              <!-- Boutons veste -->
+              <circle cx="100" cy="145" r="3" fill="#d4a017"/>
+              <circle cx="100" cy="160" r="3" fill="#d4a017"/>
+              <circle cx="100" cy="175" r="3" fill="#d4a017"/>
+              <!-- Col veste -->
+              <path d="M86 126 L100 145 L114 126" fill="#f0f0f0" stroke="#ccc" stroke-width="1"/>
+
+              <!-- ── Tablier bleu ── -->
+              <rect x="76" y="160" width="48" height="80" rx="4" fill="#0077b6" opacity="0.85"/>
+              <!-- Poche tablier -->
+              <rect x="86" y="175" width="28" height="20" rx="3" fill="#005f92"/>
+              <!-- Décoration tablier -->
+              <path d="M86 195 Q100 190 114 195" stroke="#d4a017" stroke-width="1.5"
+                    fill="none" stroke-dasharray="3,2"/>
+
+              <!-- ── Bras gauche (tient la marmite) — ANIMÉ ── -->
+              <g class="bras-gauche">
+                <path d="M68 145 Q45 155 35 175" stroke="#c68642" stroke-width="14"
+                      stroke-linecap="round" fill="none"/>
+                <path d="M68 145 Q45 155 35 175" stroke="#b57535" stroke-width="10"
+                      stroke-linecap="round" fill="none"/>
+                <!-- Main -->
+                <ellipse cx="33" cy="178" rx="9" ry="7" fill="#c68642"/>
+              </g>
+
+              <!-- ── Bras droit (lève une cuillère) — ANIMÉ ── -->
+              <g class="bras-droit">
+                <path d="M132 145 Q155 130 160 110" stroke="#c68642" stroke-width="14"
+                      stroke-linecap="round" fill="none"/>
+                <path d="M132 145 Q155 130 160 110" stroke="#b57535" stroke-width="10"
+                      stroke-linecap="round" fill="none"/>
+                <!-- Cuillère -->
+                <line x1="160" y1="110" x2="162" y2="70" stroke="#d4a017"
+                      stroke-width="3" stroke-linecap="round"/>
+                <ellipse cx="162" cy="66" rx="7" ry="5" fill="#d4a017"/>
+              </g>
+
+              <!-- ── Marmite tenue dans la main gauche ── -->
+              <g class="petite-marmite">
+                <ellipse cx="20" cy="195" rx="18" ry="10" fill="#d4a017"/>
+                <rect x="4" y="188" width="32" height="12" rx="4" fill="#c8970f"/>
+                <ellipse cx="20" cy="188" rx="18" ry="5" fill="#b8860b"/>
+                <!-- Vapeur -->
+                <path d="M14 183 Q12 177 14 171" stroke="rgba(255,255,255,0.6)"
+                      stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M20 181 Q18 175 20 169" stroke="rgba(255,255,255,0.6)"
+                      stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </g>
+
+              <!-- ── Jupe / bas de tenue ── -->
+              <path d="M72 215 Q68 265 65 295 Q75 300 100 298 Q125 300 135 295 Q132 265 128 215 Z"
+                    fill="#0a4f7a"/>
+              <!-- Volants de jupe -->
+              <path d="M65 260 Q100 275 135 260" stroke="#d4a017" stroke-width="2"
+                    fill="none"/>
+              <path d="M66 280 Q100 295 134 280" stroke="#d4a017" stroke-width="1.5"
+                    fill="none"/>
+
+              <!-- ── Chaussures ── -->
+              <ellipse cx="80" cy="300" rx="16" ry="7" fill="#1a1a1a"/>
+              <ellipse cx="120" cy="300" rx="16" ry="7" fill="#1a1a1a"/>
+              <!-- Talons -->
+              <rect x="88" y="300" width="5" height="10" rx="2" fill="#333"/>
+              <rect x="127" y="300" width="5" height="10" rx="2" fill="#333"/>
+
+              <!-- ── Étoiles décoratives autour ── -->
+              <text x="15" y="145" font-size="16" class="etoile-anim" style="animation-delay:0s">⭐</text>
+              <text x="165" y="160" font-size="14" class="etoile-anim" style="animation-delay:0.5s">✨</text>
+              <text x="8" y="230" font-size="12" class="etoile-anim" style="animation-delay:1s">🌟</text>
+            </svg>
+
+            <!-- Bulle de parole -->
+            <div class="chef-bulle">
+              Bienvenue au <br>
+              Restaurant <br>
+              La MARMITE! 🍽️<br>
+              <small> chez GomyCode</small>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION MENU
+       Grille Bootstrap : col-12 / col-md-6 / col-lg-4
+       Plats africains (Garba, Egusi, Thiéboudienne…)
+       et européens (Bouillabaisse, Coq au vin, Tiramisu)
+       ════════════════════════════════════════════════════════ -->
+  <section class="section-menu" id="menu">
+    <div class="container">
+
+      <!-- En-tête de section -->
+      <div class="section-head text-center">
+        <span class="section-tag">Notre carte</span>
+        <h2 class="section-title">Notre Menu</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub">Fusion Afrique & Europe — des saveurs qui traversent les continents</p>
+      </div>
+
+      <!-- Sous-titre catégorie : Cuisine Africaine -->
+      <h3 class="menu-category">
+        <span>🌍 Spécialités Africaines</span>
+      </h3>
+
+      <div class="row g-4 mb-5">
+
+        <!-- ── Plat 1 : Garba Poisson (Côte d'Ivoire) ── -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="menu-card">
+            <div class="menu-img-wrap">
+              <!-- Image garba poisson (thon attiéké) -->
+              <img src="images/plat_principal_2_garba.png"
+                   alt="Garba Poisson – Attiéké thon Côte d'Ivoire"
+                   class="menu-img" loading="lazy" />
+              <span class="menu-badge">⭐ Spécialité</span>
+              <div class="menu-overlay">
+                <span class="overlay-origin">Côte d'Ivoire</span>
+              </div>
+            </div>
+            <div class="menu-body">
+              <h3 class="menu-name">Garba Poisson</h3>
+              <p class="menu-desc">
+                Attiéké (semoule de manioc) servi avec du thon frit croustillant,
+                oignons émincés, piment frais et sauce tomate maison. Le street-food
+                emblématique d'Abidjan.
+              </p>
+              <div class="menu-footer">
+                <span class="menu-price">3 500 F CFA</span>
+                <button class="btn-commander">Commander</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ── Plat 2 : Egusi Soup (Nigeria / Ghana) ── -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="menu-card featured">
+            <div class="menu-img-wrap">
+              <img src="images/plat_principal_3_egusi_soup.png"
+                   alt="Egusi Soup – Nigeria Ghana"
+                   class="menu-img" loading="lazy" />
+              <span class="menu-badge hot">🔥 Best-seller</span>
+              <div class="menu-overlay">
+                <span class="overlay-origin">Nigeria /  Ghana</span>
+              </div>
+            </div>
+            <div class="menu-body">
+              <h3 class="menu-name">Egusi Soup</h3>
+              <p class="menu-desc">
+                Soupe épaisse aux graines de melon moulues, viande de bœuf fumé,
+                épinards frais, huile de palme et épices secrètes. Servi avec du fufu
+                de manioc ou d'igname.
+              </p>
+              <div class="menu-footer">
+                <span class="menu-price">5 000 F CFA</span>
+                <button class="btn-commander">Commander</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ── Plat 3 : Thiéboudienne (Sénégal) ── -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="menu-card">
+            <div class="menu-img-wrap">
+              <img src="images/plat_principal_5_tchep_poisson.png"
+                   alt="Thiéboudienne – Riz au poisson sénégalais"
+                   class="menu-img" loading="lazy" />
+              <span class="menu-badge">🌿 Végétarien opt.</span>
+              <div class="menu-overlay">
+                <span class="overlay-origin">Sénégal</span>
+              </div>
+            </div>
+            <div class="menu-body">
+              <h3 class="menu-name">Thiéboudienne / Tchep</h3>
+              <p class="menu-desc">
+                Le plat national sénégalais : riz rouge cuit dans une sauce tomate
+                parfumée avec du poisson yeet, légumes du jour (manioc, aubergine,
+                carotte, chou) et dibi.
+              </p>
+              <div class="menu-footer">
+                <span class="menu-price">4 500 F CFA</span>
+                <button class="btn-commander">Commander</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ── Plat 4 : Poulet Kedjenou (Côte d'Ivoire) ── -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="menu-card">
+            <div class="menu-img-wrap">
+              <img src="images/plat_principal_6_kedjenou_poulet.png"
+                   alt="Poulet Kedjenou Côte d'Ivoire"
+                   class="menu-img" loading="lazy" />
+              <span class="menu-badge new">✨ Nouveau</span>
+              <div class="menu-overlay">
+                <span class="overlay-origin">Côte d'Ivoire</span>
+              </div>
+            </div>
+            <div class="menu-body">
+              <h3 class="menu-name">Poulet Kedjenou</h3>
+              <p class="menu-desc">
+                Poulet mijoté à l'étouffée en canari (marmite en terre cuite) avec
+                tomates, piments, gombos, aubergines et aromates. Saveur intense
+                et naturelle garantie.
+              </p>
+              <div class="menu-footer">
+                <span class="menu-price">6 000 F CFA</span>
+                <button class="btn-commander">Commander</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ── Plat 5 : Mafé (Mali / Sénégal) ── -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="menu-card">
+            <div class="menu-img-wrap">
+              <img src="images/plat_principal_8_mafé.png"
+                   alt="Mafé sauce arachide"
+                   class="menu-img" loading="lazy" />
+              <div class="menu-overlay">
+                <span class="overlay-origin">Mali / Sénégal</span>
+              </div>
+            </div>
+            <div class="menu-body">
+              <h3 class="menu-name">Mafé à la Viande</h3>
+              <p class="menu-desc">
+                Ragoût de bœuf à la sauce arachide onctueuse, patate douce, manioc
+                et épices africaines. Accompagné de riz blanc parfumé. Un classique
+                incontournable de l'Afrique de l'Ouest.
+              </p>
+              <div class="menu-footer">
+                <span class="menu-price">5 500 F CFA</span>
+                <button class="btn-commander">Commander</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ── Plat 6 : Alloco + Poisson Braisé ou Frit ── -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="menu-card">
+            <div class="menu-img-wrap">
+              <img src="images/plat_principal_7_alloco_poisson.png"
+                   alt="Alloco Poisson Braisé"
+                   class="menu-img" loading="lazy" />
+              <span class="menu-badge hot">🔥 Populaire</span>
+              <div class="menu-overlay">
+                <span class="overlay-origin">Côte d'Ivoire</span>
+              </div>
+            </div>
+            <div class="menu-body">
+              <h3 class="menu-name">Alloco & Poisson Braisé ou Frit</h3>
+              <p class="menu-desc">
+                Bananes plantains frites dorées et croustillantes accompagnées de
+                poisson braisé au four ou poisson frit, sauce piment tomate maison et salade fraîche.
+                Un must de la cuisine ivoirienne.
+              </p>
+              <div class="menu-footer">
+                <span class="menu-price">4 000 F CFA</span>
+                <button class="btn-commander">Commander</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div><!-- /row africain -->
+
+      <!-- Sous-titre catégorie : Cuisine Européenne -->
+      <h3 class="menu-category">
+        <span>🇪🇺 Spécialités Européennes</span>
+      </h3>
+
+      <div class="row g-4">
+
+        <!-- ── Plat 7 : Bouillabaisse (France) ── -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="menu-card">
+            <div class="menu-img-wrap">
+              <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=500&q=80"
+                   alt="Bouillabaisse marseillaise"
+                   class="menu-img" loading="lazy" />
+              <span class="menu-badge">⭐ Chef recommande</span>
+              <div class="menu-overlay">
+                <span class="overlay-origin">France – Marseille</span>
+              </div>
+            </div>
+            <div class="menu-body">
+              <h3 class="menu-name">Bouillabaisse</h3>
+              <p class="menu-desc">
+                Soupe de poisson marseillaise traditionnelle : rascasse, grondin,
+                saint-pierre, safran, fenouil et croûtons à la rouille. Un voyage
+                culinaire en Méditerranée.
+              </p>
+              <div class="menu-footer">
+                <span class="menu-price">7 000 F CFA</span>
+                <button class="btn-commander">Commander</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ── Plat 8 : Coq au Vin (France) ── -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="menu-card featured">
+            <div class="menu-img-wrap">
+              <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=500&q=80"
+                   alt="Coq au vin français"
+                   class="menu-img" loading="lazy" />
+              <span class="menu-badge hot">🔥 Signature</span>
+              <div class="menu-overlay">
+                <span class="overlay-origin">France</span>
+              </div>
+            </div>
+            <div class="menu-body">
+              <h3 class="menu-name">Coq au Vin</h3>
+              <p class="menu-desc">
+                Poulet fermier mijoté au vin rouge de Bourgogne, lardons, champignons
+                de Paris, oignons grelots et bouquet garni. Servi avec pommes de terre
+                vapeur et gratin dauphinois.
+              </p>
+              <div class="menu-footer">
+                <span class="menu-price">6 000 F CFA</span>
+                <button class="btn-commander">Commander</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ── Plat 9 : Tiramisu (Italie) ── -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="menu-card">
+            <div class="menu-img-wrap">
+              <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&q=80"
+                   alt="Tiramisu classique"
+                   class="menu-img" loading="lazy" />
+              <span class="menu-badge new">✨ Dessert</span>
+              <div class="menu-overlay">
+                <span class="overlay-origin">Italie</span>
+              </div>
+            </div>
+            <div class="menu-body">
+              <h3 class="menu-name">Tiramisu Classique</h3>
+              <p class="menu-desc">
+                Biscuits cuillère imbibés de café espresso, crème mascarpone aérienne
+                au jaune d'œuf, cacao amer en poudre. La recette authentique de la
+                nonna italienne.
+              </p>
+              <div class="menu-footer">
+                <span class="menu-price">3 500 F CFA</span>
+                <button class="btn-commander">Commander</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div><!-- /row européen -->
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION À PROPOS DE NOUS
+       Grille 2 colonnes Bootstrap (col-lg-6)
+       Image à gauche, texte + chef animée à droite
+       ════════════════════════════════════════════════════════ -->
+  <section class="section-apropos" id="apropos">
+    <div class="container">
+
+      <div class="section-head text-center mb-5">
+        <span class="section-tag">Notre histoire</span>
+        <h2 class="section-title">À Propos de Nous</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="row align-items-center g-5">
+
+        <!-- Colonne image (côté gauche) -->
+        <div class="col-12 col-lg-6">
+          <div class="apropos-img-wrap">
+            <img src="images/chef_cuisinier_2.png"
+                 alt="La brigade de La Marmite en cuisine"
+                 class="apropos-img" />
+            <!-- Cadre doré décoratif -->
+            <div class="apropos-frame"></div>
+            <!-- Badge flottant -->
+            <div class="apropos-badge-float">
+              <span class="float-num">5+</span>
+              <span class="float-label">Années d'excellence</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne texte (côté droit) -->
+        <div class="col-12 col-lg-6">
+          <div class="apropos-content">
+            <h3 class="apropos-subtitle">
+              <em>Fusion culinaire</em> depuis 2020
+            </h3>
+            <p class="apropos-text">
+              Fondé en 2020 à Abidjan par la Chef <strong>NEMPE MOBIO</strong>,
+              <strong>Restaurant La Marmite de Gomycode</strong> est né d'une passion profonde pour
+              les saveurs authentiques de l'Afrique de l'Ouest et d'une admiration sincère
+              pour la gastronomie européenne.
+            </p>
+            <p class="apropos-text">
+              Notre philosophie est simple : cuisiner avec le cœur, sélectionner les
+              meilleurs ingrédients locaux et créer des ponts gustatifs entre deux
+              continents. Chaque plat est une invitation au voyage, préparé selon
+              des recettes familiales transmises de génération en génération, sublimées
+              par des techniques modernes.
+            </p>
+            <p class="apropos-text">
+              Aujourd'hui, notre équipe de 12 passionnés accueille plus de 100 couverts
+              par soir dans une ambiance chaleureuse où la musique africaine se mêle
+              aux arômes envoûtants de nos cuisines ouvertes.
+            </p>
+
+            <!-- Chiffres clés -->
+            <div class="row g-3 mt-3">
+              <div class="col-4">
+                <div class="stat-box">
+                  <span class="stat-num">5+</span>
+                  <span class="stat-label">Années</span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="stat-box">
+                  <span class="stat-num">100+</span>
+                  <span class="stat-label">Couverts/soir</span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="stat-box">
+                  <span class="stat-num">3</span>
+                  <span class="stat-label">Récompenses</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="#contact" class="btn btn-apropos mt-4">
+              <i class="bi bi-telephone me-2"></i>Nous contacter
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION CONTACT
+       Formulaire Bootstrap : nom, email, message + envoi
+       ════════════════════════════════════════════════════════ -->
+  <section class="section-contact" id="contact">
+    <div class="container">
+
+      <div class="section-head text-center">
+        <span class="section-tag light">Nous joindre</span>
+        <h2 class="section-title text-white">Contactez-nous</h2>
+        <div class="section-divider gold"></div>
+        <p class="section-sub text-white-50">Réservations, événements privés, questions — nous répondons sous 24 h.</p>
+      </div>
+
+      <div class="row g-5 justify-content-center">
+
+        <!-- Infos pratiques -->
+        <div class="col-12 col-lg-4">
+          <div class="contact-infos">
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+              <div>
+                <div class="contact-info-label">Adresse</div>
+                <div class="contact-info-val">Cocody Riviera Palmeraie non loin de la SODECI<br>Abidjan, Côte d'Ivoire</div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="bi bi-clock-fill"></i></div>
+              <div>
+                <div class="contact-info-label">Horaires</div>
+                <div class="contact-info-val">Lun – Sam : 11h – 23h<br>Dimanche : 12h – 21h</div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="bi bi-telephone-fill"></i></div>
+              <div>
+                <div class="contact-info-label">Téléphone</div>
+                <div class="contact-info-val">+225 07 00 11 22 33</div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
+              <div>
+                <div class="contact-info-label">Email</div>
+                <div class="contact-info-val">lamarmite@abijan.ci</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire de contact -->
+        <div class="col-12 col-lg-7">
+          <form class="contact-form" novalidate>
+            <div class="row g-3">
+
+              <!-- Nom complet -->
+              <div class="col-12 col-sm-6">
+                <label class="form-label" for="cNom">Nom complet *</label>
+                <input type="text" id="cNom" class="form-control"
+                       placeholder="Ex. : NEMPE Mobio Sylvain" required />
+              </div>
+
+              <!-- Email -->
+              <div class="col-12 col-sm-6">
+                <label class="form-label" for="cEmail">Adresse email *</label>
+                <input type="email" id="cEmail" class="form-control"
+                       placeholder="nempe@gmail.com" required />
+              </div>
+
+              <!-- Téléphone -->
+              <div class="col-12 col-sm-6">
+                <label class="form-label" for="cTel">Téléphone</label>
+                <input type="tel" id="cTel" class="form-control"
+                       placeholder="+225 05 86 43 08 84 / 07 04 04 00 86" />
+              </div>
+
+              <!-- Objet -->
+              <div class="col-12 col-sm-6">
+                <label class="form-label" for="cObjet">Objet</label>
+                <select id="cObjet" class="form-select">
+                  <option value="" disabled selected>Choisir…</option>
+                  <option>Réservation de table</option>
+                  <option>Événement privé / Traiteur</option>
+                  <option>Question sur le menu</option>
+                  <option>Partenariat</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+
+              <!-- Nombre de couverts -->
+              <div class="col-12 col-sm-6">
+                <label class="form-label" for="cCouverts">Nombre de personnes</label>
+                <select id="cCouverts" class="form-select">
+                  <option>1 – 2 personnes</option>
+                  <option selected>3 – 4 personnes</option>
+                  <option>5 – 8 personnes</option>
+                  <option>Groupe 8+</option>
+                  <option>Privatisation de salle</option>
+                </select>
+              </div>
+
+              <!-- Date souhaitée -->
+              <div class="col-12 col-sm-6">
+                <label class="form-label" for="cDate">Date souhaitée</label>
+                <input type="date" id="cDate" class="form-control" />
+              </div>
+
+              <!-- Message -->
+              <div class="col-12">
+                <label class="form-label" for="cMsg">Message *</label>
+                <textarea id="cMsg" class="form-control" rows="5"
+                          placeholder="Décrivez votre demande, vos préférences alimentaires, occasion spéciale…"
+                          required></textarea>
+              </div>
+
+              <!-- Bouton envoi -->
+              <div class="col-12">
+                <button type="submit" class="btn btn-envoyer w-100">
+                  <i class="bi bi-send-fill me-2"></i>Envoyer ma demande
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PIED DE PAGE
+       Copyright + réseaux sociaux
+       ════════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="row align-items-center g-4">
+
+        <!-- Logo & copyright -->
+        <div class="col-12 col-md-5 text-center text-md-start">
+          <div class="footer-brand">
+            <!-- Petite marmite SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 30"
+                 width="30" height="22" aria-hidden="true">
+              <ellipse cx="20" cy="22" rx="14" ry="7" fill="#d4a017"/>
+              <rect x="6" y="15" width="28" height="9" rx="3" fill="#d4a017"/>
+              <ellipse cx="20" cy="15" rx="14" ry="4" fill="#b8860b"/>
+              <rect x="0" y="17" width="7" height="4" rx="2" fill="#b8860b"/>
+              <rect x="33" y="17" width="7" height="4" rx="2" fill="#b8860b"/>
+            </svg>
+            <span>RESTAURANT <strong>LA MARMITE chez GomyCode</strong></span>
+          </div>
+          <p class="footer-copy">
+            © Mai 2026 - Restaurant La Marmite Chez GomyCode – Tous droits réservés.<br>
+            <small>Cuisine africaine & européenne – Abidjan, Côte d'Ivoire</small>
+          </p>
+        </div>
+
+        <!-- Liens rapides -->
+        <div class="col-12 col-md-3 text-center">
+          <ul class="footer-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Mentions légales</a></li>
+          </ul>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div class="col-12 col-md-4 text-center text-md-end">
+          <p class="footer-follow">Suivez La Marmite</p>
+          <div class="footer-socials">
+            <a href="#" class="social-icon" aria-label="Facebook">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="WhatsApp">
+              <i class="bi bi-whatsapp"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="TikTok">
+              <i class="bi bi-tiktok"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="YouTube">
+              <i class="bi bi-youtube"></i>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /row -->
+
+      <!-- Barre de séparation + mention finale -->
+      <div class="footer-bottom">
+        Fait avec ❤️ et beaucoup d'épices — Bon appétit !
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ─── Bootstrap JS bundle ──────────────────────────── -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ─── Script : navbar compactée au scroll ─────────── -->
+  <script>
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    });
+  </script>
+
+</body>
+</html>
